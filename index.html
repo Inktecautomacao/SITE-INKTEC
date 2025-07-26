@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InkTec - Automação Comercial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0056b3;
+            --primary-dark: #004494;
+            --secondary: #00a0e3;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --gray: #6c757d;
+            --white: #ffffff;
+            --success: #28a745;
+            --danger: #dc3545;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 60px;
+        }
+        
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: var(--primary);
+            margin-left: 15px;
+            font-size: 20px;
+            letter-spacing: 1px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            margin-left: 30px;
+        }
+        
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+        
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--dark);
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 86, 179, 0.8), rgba(0, 160, 227, 0.8)), url('https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            color: var(--white);
+            margin-top: 90px;
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        
+        .hero-text {
+            max-width: 600px;
+        }
+        
+        .hero-logo {
+            width: 400px;
+            margin-left: 30px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: 2px solid var(--primary);
+        }
+        
+        .btn:hover {
+            background-color: transparent;
+            color: var(--white);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--white);
+            margin-left: 15px;
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--white);
+            color: var(--primary);
+        }
+        
+        /* About Section */
+        .section {
+            padding: 100px 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 3px;
+            background-color: var(--secondary);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--gray);
+        }
+        
+        /* Solutions Section */
+        .solutions {
+            background-color: #f5f9ff;
+        }
+        
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .solution-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .solution-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .solution-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .solution-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .solution-card:hover .solution-image img {
+            transform: scale(1.1);
+        }
+        
+        .solution-content {
+            padding: 25px;
+        }
+        
+        .solution-content h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .solution-content p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+        
+        .solution-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .solution-features li {
+            padding: 5px 0;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+        }
+        
+        .solution-features li i {
+            color: var(--secondary);
+            margin-right: 10px;
+        }
+        
+        .solution-link {
+            display: inline-block;
+            color: var(--primary);
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .solution-link:hover {
+            color: var(--secondary);
+        }
+        
+        /* Why Choose Us Section */
+        .why-us-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .why-us-item {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .why-us-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .why-us-icon {
+            width: 80px;
+            height: 80px;
+            background-color: #e6f3ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        
+        .why-us-icon i {
+            font-size: 36px;
+            color: var(--primary);
+        }
+        
+        .why-us-item h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+        
+        .why-us-item p {
+            color: var(--gray);
+        }
+        
+        /* Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 50px;
+        }
+        
+        .contact-info {
+            background-color: var(--primary);
+            padding: 40px;
+            border-radius: 10px;
+            color: var(--white);
+        }
+        
+        .contact-info h3 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .contact-info h3::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background-color: var(--white);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .contact-details {
+            margin-bottom: 30px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .contact-icon {
+            font-size: 20px;
+            margin-right: 15px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .contact-text {
+            line-height: 1.6;
+        }
+        
+        .whatsapp-number {
+            display: flex;
+            align-items: center;
+        }
+        
+        .whatsapp-icon {
+            color: #25D366;
+            margin-right: 15px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--white);
+            color: var(--primary);
+        }
+        
+        .contact-form {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        textarea.form-control {
+            resize: vertical;
+            min-height: 150px;
+        }
+        
+        .form-btn {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        
+        .form-btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .form-btn.whatsapp {
+            background-color: #25D366;
+        }
+        
+        .form-btn.whatsapp:hover {
+            background-color: #128C7E;
+        }
+        
+        .form-btn.email {
+            background-color: var(--secondary);
+        }
+        
+        .form-btn.email:hover {
+            background-color: #0088cc;
+        }
+        
+        .contact-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .contact-buttons button {
+            flex: 1;
+        }
+        
+        .form-message {
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .form-message.success {
+            background-color: rgba(40, 167, 69, 0.1);
+            border: 1px solid var(--success);
+            color: var(--success);
+        }
+        
+        .form-message.error {
+            background-color: rgba(220, 53, 69, 0.1);
+            border: 1px solid var(--danger);
+            color: var(--danger);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a1a1a;
+            color: var(--white);
+            padding: 70px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h4 {
+            font-size: 18px;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-column p {
+            color: #bbb;
+            margin-bottom: 20px;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-column ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            color: #bbb;
+            font-size: 14px;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-image, .about-text {
+                flex: none;
+                width: 100%;
+            }
+            
+            .about-image {
+                margin-bottom: 30px;
+            }
+            
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-content {
+                flex-direction: column;
+            }
+            
+            .hero-logo {
+                margin-left: 0;
+                margin-top: 30px;
+                width: 300px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 90px;
+                left: -100%;
+                width: 100%;
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                transition: left 0.3s;
+                z-index: 999;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-menu li {
+                margin: 15px 0;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .section-title {
+                font-size: 30px;
+            }
+            
+            .logo-text {
+                font-size: 16px;
+            }
+            
+            .contact-buttons {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .section-title {
+                font-size: 26px;
+            }
+            
+            .solution-card, .why-us-item {
+                padding: 25px 20px;
+            }
+            
+            .contact-form, .contact-info {
+                padding: 25px;
+            }
+            
+            .btn {
+                display: block;
+                margin-bottom: 15px;
+                text-align: center;
+            }
+            
+            .btn-outline {
+                margin-left: 0;
+            }
+            
+            .hero-logo {
+                width: 250px;
+            }
+            
+            .logo-text {
+                font-size: 14px;
+                margin-left: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="https://i.postimg.cc/76Ngdx1Q/LOGO-DO-CABE-ALHO.png" alt="InkTec Logo">
+                <div class="logo-text">InkTec Automação</div>
+            </div>
+            <button class="mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#quem-somos">Quem Somos</a></li>
+                    <li><a href="#solucoes">Soluções</a></li>
+                    <li><a href="#por-que-nos">Por Que Nos Escolher</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Soluções Completas em Automação Comercial</h1>
+                    <p>Transforme seu negócio com nossas soluções integradas de automação comercial. Aumente a eficiência, reduza custos e melhore a experiência dos seus clientes.</p>
+                    <div class="hero-buttons">
+                        <a href="#solucoes" class="btn">Nossas Soluções</a>
+                        <a href="#contato" class="btn btn-outline">Fale Conosco</a>
+                    </div>
+                </div>
+                <img src="https://i.postimg.cc/hGBYpKqw/4369ad9b-a427-4694-a50e-6b4f710f2ed6.png" alt="InkTec Logo" class="hero-logo">
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="quem-somos" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">QUEM SOMOS</h2>
+                <p class="section-subtitle">Conheça a InkTec e nossa missão de transformar negócios através da tecnologia</p>
+            </div>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="https://i.postimg.cc/x15m4SJ8/COLOCAR-NO-SITE.png" alt="Equipe InkTec">
+                </div>
+                <div class="about-text">
+                    <h3>Excelência em Automação Comercial</h3>
+                    <p>A InkTec é uma empresa especializada em soluções de automação comercial, focada em oferecer tecnologias inovadoras que otimizam processos e impulsionam o crescimento dos negócios.</p>
+                    <p>Com uma equipe altamente qualificada e anos de experiência no mercado, desenvolvemos sistemas personalizados que atendem às necessidades específicas de cada cliente, desde pequenos comércios até grandes redes varejistas.</p>
+                    <p>Nossa missão é simplificar a gestão empresarial através de ferramentas tecnológicas intuitivas e eficientes, permitindo que nossos clientes se concentrem no que realmente importa: o crescimento do seu negócio.</p>
+                    <a href="#contato" class="btn">Entre em Contato</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section id="solucoes" class="section solutions">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">NOSSAS SOLUÇÕES</h2>
+                <p class="section-subtitle">Conheça os sistemas que desenvolvemos para otimizar seu negócio</p>
+            </div>
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <div class="solution-image">
+                        <img src="https://i.postimg.cc/SKFrMq4z/FOTO-PDV-PARA-SITE.jpg" alt="PDV">
+                    </div>
+                    <div class="solution-content">
+                        <h3>PDV - Ponto de Venda</h3>
+                        <p>Sistema completo para gerenciamento de vendas no balcão, com interface intuitiva e recursos avançados.</p>
+                        <ul class="solution-features">
+                            <li><i class="fas fa-check-circle"></i> Agilidade no atendimento</li>
+                            <li><i class="fas fa-check-circle"></i> Emissão de cupom fiscal</li>
+                            <li><i class="fas fa-check-circle"></i> Funcionamento offline</li>
+                            <li><i class="fas fa-check-circle"></i> Fechamento de caixa seguro</li>
+                        </ul>
+                        <a href="#contato" class="solution-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-image">
+                        <img src="https://i.postimg.cc/2SW91RTb/PARA-COLOCAR-NO-SITE-3.jpg" alt="E-Trade">
+                    </div>
+                    <div class="solution-content">
+                        <h3>E-Trade</h3>
+                        <p>Solução completa para gestão empresarial, integrando todos os setores da sua empresa.</p>
+                        <ul class="solution-features">
+                            <li><i class="fas fa-check-circle"></i> Controle financeiro completo</li>
+                            <li><i class="fas fa-check-circle"></i> Relatório personalizados</li>
+                            <li><i class="fas fa-check-circle"></i> Controle de estoque avançado</li>
+                            <li><i class="fas fa-check-circle"></i> Controle de pedidos e expedição</li>
+                        </ul>
+                        <a href="#contato" class="solution-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-image">
+                        <img src="https://i.postimg.cc/GhnYh9hG/PARA-COLOCAR-NO-SITE.jpg" alt="VR Pedidos">
+                    </div>
+                    <div class="solution-content">
+                        <h3>VR Pedidos</h3>
+                        <p>Aplicativo para força de vendas externa, permitindo realizar pedidos mesmo sem conexão com internet.</p>
+                        <ul class="solution-features">
+                            <li><i class="fas fa-check-circle"></i> Vendas online</li>
+                            <li><i class="fas fa-check-circle"></i> Catálogo virtual</li>
+                            <li><i class="fas fa-check-circle"></i> Isento de taxas</li>
+                            <li><i class="fas fa-check-circle"></i> Gerenciamento do delivery</li>
+                        </ul>
+                        <a href="#contato" class="solution-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-image">
+                        <img src="https://i.postimg.cc/yY8QjfcL/PARA-COLOCAR-NO-SITE-2.jpg" alt="Módulo Gourmet">
+                    </div>
+                    <div class="solution-content">
+                        <h3>Módulo Gourmet</h3>
+                        <p>Sistema especializado para restaurantes, bares e estabelecimentos do setor alimentício.</p>
+                        <ul class="solution-features">
+                            <li><i class="fas fa-check-circle"></i> Controle de mesas e comandas</li>
+                            <li><i class="fas fa-check-circle"></i> Comissão por produto ou garçom</li>
+                            <li><i class="fas fa-check-circle"></i> App para celular android e máquina de cartão</li>
+                            <li><i class="fas fa-check-circle"></i> Integração com PDV</li>
+                        </ul>
+                        <a href="#contato" class="solution-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-image">
+                        <img src="https://i.postimg.cc/43qhM0VZ/PARA-COLOCAR-NO-SITE.png" alt="Gestor VR">
+                    </div>
+                    <div class="solution-content">
+                        <h3>Gestor VR</h3>
+                        <p>Software voltado a gestão da empresa possibilitando o Análise, Planejamento, e Acompanhamento do seu negócio.</p>
+                        <ul class="solution-features">
+                            <li><i class="fas fa-check-circle"></i> Mobilidade para gestor</li>
+                            <li><i class="fas fa-check-circle"></i> Visão consolidada de múltiplas filiais</li>
+                            <li><i class="fas fa-check-circle"></i> Análise de informações comerciais do dia</li>
+                            <li><i class="fas fa-check-circle"></i> Acompanhamento de suas vendas online</li>
+                            <li><i class="fas fa-check-circle"></i> Informações em tempo real</li>
+                        </ul>
+                        <a href="#contato" class="solution-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="por-que-nos" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">POR QUE NOS ESCOLHER</h2>
+                <p class="section-subtitle">Conheça os diferenciais que fazem da InkTec a melhor escolha para seu negócio</p>
+            </div>
+            <div class="why-us-grid">
+                <div class="why-us-item">
+                    <div class="why-us-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <h3>20+ ANOS DE EXPERIÊNCIA</h3>
+                    <p>Mais de duas décadas de atuação no mercado de automação comercial, oferecendo soluções confiáveis e inovadoras para milhares de clientes.</p>
+                </div>
+                <div class="why-us-item">
+                    <div class="why-us-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>SOLUÇÕES PERSONALIZADAS</h3>
+                    <p>Desenvolvemos soluções adaptadas às necessidades específicas do seu negócio, garantindo máxima eficiência e resultados.</p>
+                </div>
+                <div class="why-us-item">
+                    <div class="why-us-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3>TECNOLOGIA EM NUVEM</h3>
+                    <p>Acesse suas informações de qualquer lugar e a qualquer momento, com total segurança e backup automático dos seus dados.</p>
+                </div>
+                <div class="why-us-item">
+                    <div class="why-us-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>TREINAMENTO COMPLETO</h3>
+                    <p>Oferecemos treinamento completo para sua equipe, garantindo o aproveitamento máximo das funcionalidades dos sistemas.</p>
+                </div>
+                <div class="why-us-item">
+                    <div class="why-us-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>ATUALIZAÇÕES CONSTANTES</h3>
+                    <p>Nossos sistemas são constantemente atualizados, incorporando novas tecnologias e melhorias para manter seu negócio sempre à frente.</p>
+                </div>
+                <div class="why-us-item">
+                    <div class="why-us-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>SEGURANÇA GARANTIDA</h3>
+                    <p>Proteção avançada dos seus dados, com criptografia e protocolos de segurança que garantem a integridade das suas informações.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contato" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">ENTRE EM CONTATO</h2>
+                <p class="section-subtitle">Estamos prontos para ajudar a transformar seu negócio</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Informações de Contato</h3>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                Rua Segisfredo bravo 115, sala 03<br>
+                                Bacaxá - Saquarema - RJ<br>
+                                CEP: 28994-627
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                (22) 2653-2359
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="whatsapp-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="contact-text">
+                                (22) 98870-0112
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                inktec@inktec.app.br
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-text">
+                                Segunda a Sexta: 8:30 às 18hrs<br>
+                                Sábado: 9hrs às 13hrs
+                            </div>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/inktec.sistema/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/inktec/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/inktec-systems-ltd/?viewAsMember=true" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://wa.me/5522988700112" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Nome</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Telefone</label>
+                            <input type="tel" id="phone" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Assunto</label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Mensagem</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        <div class="contact-buttons">
+                            <button type="button" id="whatsappBtn" class="form-btn whatsapp">
+                                <i class="fab fa-whatsapp"></i> Enviar via WhatsApp
+                            </button>
+                            <button type="button" id="emailBtn" class="form-btn email">
+                                <i class="fas fa-envelope"></i> Enviar via E-mail
+                            </button>
+                        </div>
+                        <div id="formMessage" class="form-message"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>InkTec</h4>
+                    <p>Soluções em automação comercial para aumentar a eficiência e produtividade da sua empresa.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/inktec.sistema/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/inktec/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/inktec-systems-ltd/?viewAsMember=true" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://wa.me/5522988700112" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="#inicio">Início</a></li>
+                        <li><a href="#quem-somos">Quem Somos</a></li>
+                        <li><a href="#solucoes">Soluções</a></li>
+                        <li><a href="#por-que-nos">Por Que Nos Escolher</a></li>
+                        <li><a href="#contato">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Soluções</h4>
+                    <ul>
+                        <li><a href="#solucoes">PDV - Ponto de Venda</a></li>
+                        <li><a href="#solucoes">E-Trade</a></li>
+                        <li><a href="#solucoes">VR Pedidos</a></li>
+                        <li><a href="#solucoes">Módulo Gourmet</a></li>
+                        <li><a href="#solucoes">Gestor VR</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contato</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Rua Segisfredo bravo 115, sala 03, Bacaxá - Saquarema - RJ, CEP: 28994-627</li>
+                        <li><i class="fas fa-phone-alt"></i> (22) 2653-2359</li>
+                        <li><i class="fab fa-whatsapp"></i> (22) 98870-0112</li>
+                        <li><i class="fas fa-envelope"></i> inktec@inktec.app.br</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 InkTec. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector('.nav-menu').classList.remove('active');
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Form validation
+        function validateForm() {
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const subject = document.getElementById('subject').value.trim();
+            const message = document.getElementById('message').value.trim();
+            
+            if (!name || !email || !phone || !subject || !message) {
+                showMessage('Por favor, preencha todos os campos do formulário.', 'error');
+                return false;
+            }
+            
+            // Simple email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showMessage('Por favor, insira um endereço de e-mail válido.', 'error');
+                return false;
+            }
+            
+            return true;
+        }
+        
+        // Show message function
+        function showMessage(text, type) {
+            const messageElement = document.getElementById('formMessage');
+            messageElement.textContent = text;
+            messageElement.className = 'form-message ' + type;
+            messageElement.style.display = 'block';
+            
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                messageElement.style.display = 'none';
+            }, 5000);
+        }
+
+        // WhatsApp Button Click
+        document.getElementById('whatsappBtn').addEventListener('click', function() {
+            if (validateForm()) {
+                // Get form values
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const subject = document.getElementById('subject').value.trim();
+                const message = document.getElementById('message').value.trim();
+                
+                // Create WhatsApp message
+                const whatsappMessage = `Olá, tudo bem? sou ${name}!\nEmail: ${email}\nTelefone: ${phone}\nAssunto: ${subject}\n\n${message}`;
+                
+                // Encode the message for URL
+                const encodedMessage = encodeURIComponent(whatsappMessage);
+                
+                // WhatsApp number with country code (Brazil)
+                const whatsappNumber = "5522988700112";
+                
+                // Create WhatsApp URL
+                const whatsappURL = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
+                
+                // Open WhatsApp with the message
+                window.open(whatsappURL, '_blank');
+                
+                // Reset the form
+                document.getElementById('contactForm').reset();
+                showMessage('Mensagem enviada com sucesso para o WhatsApp!', 'success');
+            }
+        });
+
+        // Email Button Click
+        document.getElementById('emailBtn').addEventListener('click', function() {
+            if (validateForm()) {
+                // Get form values
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const subject = document.getElementById('subject').value.trim();
+                const message = document.getElementById('message').value.trim();
+                
+                // Create email body
+                const emailBody = `Nome: ${name}%0D%0AEmail: ${email}%0D%0ATelefone: ${phone}%0D%0A%0D%0A${message}`;
+                
+                // Create mailto URL
+                const mailtoURL = `mailto:inktec@inktec.app.br?subject=${encodeURIComponent(subject)}&body=${emailBody}`;
+                
+                // Open default email client
+                window.location.href = mailtoURL;
+                
+                // Reset the form after a short delay (to allow the email client to open)
+                setTimeout(() => {
+                    document.getElementById('contactForm').reset();
+                    showMessage('Seu aplicativo de email foi aberto com a mensagem!', 'success');
+                }, 1000);
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9645455150646d58',t:'MTc1MzM3OTU0MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
