@@ -7,6 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
         :root {
             --primary: #0056b3;
@@ -596,6 +598,122 @@
             color: var(--danger);
         }
         
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            overflow: auto;
+        }
+        
+        .modal-content {
+            background-color: var(--white);
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            animation: modalFadeIn 0.3s;
+        }
+        
+        @keyframes modalFadeIn {
+            from {opacity: 0; transform: translateY(-50px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            color: var(--gray);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .close-modal:hover {
+            color: var(--dark);
+        }
+        
+        .modal-header {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .modal-header h3 {
+            font-size: 24px;
+            color: var(--primary);
+        }
+        
+        .modal-body {
+            margin-bottom: 30px;
+        }
+        
+        .modal-body p {
+            margin-bottom: 15px;
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .modal-btn {
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .modal-btn.confirm {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+        
+        .modal-btn.confirm:hover {
+            background-color: #0088cc;
+        }
+        
+        .modal-btn.cancel {
+            background-color: #f1f1f1;
+            color: var(--dark);
+        }
+        
+        .modal-btn.cancel:hover {
+            background-color: #e1e1e1;
+        }
+        
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: var(--secondary);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            to {transform: rotate(360deg);}
+        }
+        
         /* Footer */
         footer {
             background-color: #1a1a1a;
@@ -766,6 +884,12 @@
             .logo-text {
                 font-size: 14px;
                 margin-left: 10px;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 20% auto;
+                padding: 20px;
             }
         }
     </style>
@@ -1078,6 +1202,32 @@
         </div>
     </section>
 
+    <!-- Email Confirmation Modal -->
+    <div id="emailModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h3>Confirmar Envio de E-mail</h3>
+            </div>
+            <div class="modal-body">
+                <p>Você está prestes a enviar um e-mail para a InkTec com os seguintes detalhes:</p>
+                <p><strong>Nome:</strong> <span id="modalName"></span></p>
+                <p><strong>E-mail:</strong> <span id="modalEmail"></span></p>
+                <p><strong>Telefone:</strong> <span id="modalPhone"></span></p>
+                <p><strong>Assunto:</strong> <span id="modalSubject"></span></p>
+                <p><strong>Mensagem:</strong> <span id="modalMessage"></span></p>
+                <div class="loading-spinner" id="loadingSpinner">
+                    <div class="spinner"></div>
+                    <p>Enviando e-mail...</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="confirmEmailBtn" class="modal-btn confirm">Confirmar Envio</button>
+                <button id="cancelEmailBtn" class="modal-btn cancel">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -1129,6 +1279,23 @@
     </footer>
 
     <script>
+        // Adicionar um manipulador de erros global para depuração
+        window.addEventListener('error', function(event) {
+            console.error('Erro JavaScript:', event.message, 'em', event.filename, 'linha:', event.lineno);
+        });
+
+        // Inicializar EmailJS com sua chave pública
+        (function() {
+            try {
+                // Inicializa o EmailJS com sua chave pública atualizada
+                emailjs.init("5TuuC8EVir_CWgO7W");
+                console.log("EmailJS inicializado com sucesso");
+            } catch (error) {
+                console.error("Erro ao inicializar EmailJS:", error);
+                showMessage('Erro ao inicializar o serviço de email. Por favor, tente novamente mais tarde.', 'error');
+            }
+        })();
+        
         // Mobile Menu Toggle
         document.querySelector('.mobile-toggle').addEventListener('click', function() {
             document.querySelector('.nav-menu').classList.toggle('active');
@@ -1194,7 +1361,7 @@
                 const message = document.getElementById('message').value.trim();
                 
                 // Create WhatsApp message
-                const whatsappMessage = `Olá, tudo bem? sou ${name}!\nEmail: ${email}\nTelefone: ${phone}\nAssunto: ${subject}\n\n${message}`;
+                const whatsappMessage = `Olá, sou ${name}!\nEmail: ${email}\nTelefone: ${phone}\nAssunto: ${subject}\n\n${message}`;
                 
                 // Encode the message for URL
                 const encodedMessage = encodeURIComponent(whatsappMessage);
@@ -1214,32 +1381,117 @@
             }
         });
 
-        // Email Button Click
+        // Email Modal Functions
+        const modal = document.getElementById('emailModal');
+        const closeModal = document.querySelector('.close-modal');
+        const confirmEmailBtn = document.getElementById('confirmEmailBtn');
+        const cancelEmailBtn = document.getElementById('cancelEmailBtn');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+
+        // Email Button Click - Show Modal
         document.getElementById('emailBtn').addEventListener('click', function() {
             if (validateForm()) {
-                // Get form values
-                const name = document.getElementById('name').value.trim();
-                const email = document.getElementById('email').value.trim();
-                const phone = document.getElementById('phone').value.trim();
-                const subject = document.getElementById('subject').value.trim();
-                const message = document.getElementById('message').value.trim();
+                // Get form values and populate modal
+                document.getElementById('modalName').textContent = document.getElementById('name').value.trim();
+                document.getElementById('modalEmail').textContent = document.getElementById('email').value.trim();
+                document.getElementById('modalPhone').textContent = document.getElementById('phone').value.trim();
+                document.getElementById('modalSubject').textContent = document.getElementById('subject').value.trim();
+                document.getElementById('modalMessage').textContent = document.getElementById('message').value.trim();
                 
-                // Create email body
-                const emailBody = `Nome: ${name}%0D%0AEmail: ${email}%0D%0ATelefone: ${phone}%0D%0A%0D%0A${message}`;
-                
-                // Create mailto URL
-                const mailtoURL = `mailto:inktec@inktec.app.br?subject=${encodeURIComponent(subject)}&body=${emailBody}`;
-                
-                // Open default email client
-                window.location.href = mailtoURL;
-                
-                // Reset the form after a short delay (to allow the email client to open)
-                setTimeout(() => {
-                    document.getElementById('contactForm').reset();
-                    showMessage('Seu aplicativo de email foi aberto com a mensagem!', 'success');
-                }, 1000);
+                // Show modal
+                modal.style.display = 'block';
             }
         });
+
+        // Close modal when clicking on X
+        closeModal.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Cancel button
+        cancelEmailBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        // Confirm Email Send
+        confirmEmailBtn.addEventListener('click', function() {
+            // Show loading spinner
+            loadingSpinner.style.display = 'block';
+            confirmEmailBtn.disabled = true;
+            cancelEmailBtn.disabled = true;
+            
+            // Get form values
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const subject = document.getElementById('subject').value.trim();
+            const message = document.getElementById('message').value.trim();
+            
+            // Prepare template parameters
+           const templateParams = {
+             from_name: name,
+             from_email: email,
+             from_phone: phone,
+             subject: subject,
+             message: message
+           }; 
+            
+            console.log("Enviando email com os parâmetros:", templateParams);
+            
+            // Alternativa: usar o método de envio direto sem template
+            // Isso pode ajudar a contornar problemas com templates não configurados
+            emailjs.send('service_m5yle4m', 'template_2y6az6d', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    
+                    // Hide loading spinner
+                    loadingSpinner.style.display = 'none';
+                    
+                    // Close modal
+                    modal.style.display = 'none';
+                    
+                    // Reset form
+                    document.getElementById('contactForm').reset();
+                    
+                    // Show success message
+                    showMessage('Sua mensagem foi enviada com sucesso! Entraremos em contato em breve.', 'success');
+                    
+                    // Re-enable buttons
+                    confirmEmailBtn.disabled = false;
+                    cancelEmailBtn.disabled = false;
+                })
+                .catch(function(error) {
+                    console.log('FAILED...', error);
+                    
+                    // Tente uma abordagem alternativa se a primeira falhar
+                    showMessage('Tentando método alternativo de envio...', 'error');
+                    
+                    // Tente enviar usando o formulário diretamente para o email
+                    const mailtoLink = `mailto:inktec@inktec.app.br?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent('Nome: ' + name + '\nEmail: ' + email + '\nTelefone: ' + phone + '\n\n' + message)}`;
+                    
+                    window.location.href = mailtoLink;
+                    
+                    // Hide loading spinner
+                    loadingSpinner.style.display = 'none';
+                    
+                    // Close modal
+                    modal.style.display = 'none';
+                    
+                    // Show error message
+                    showMessage('O envio automático falhou. Abrindo seu aplicativo de email para envio manual.', 'error');
+                    
+                    // Re-enable buttons
+                    confirmEmailBtn.disabled = false;
+                    cancelEmailBtn.disabled = false;
+                });
+        });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9645455150646d58',t:'MTc1MzM3OTU0MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96546c3f04e4ba31',t:'MTc1MzUzODQyMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
