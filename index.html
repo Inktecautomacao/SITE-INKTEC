@@ -892,6 +892,219 @@
                 padding: 20px;
             }
         }
+        
+        /* Chat Widget Styles */
+        #chat-widget {
+            z-index: 1999;
+            transition: all 0.3s ease;
+        }
+        
+        #chat-messages {
+            height: 300px;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+            overflow-y: auto;
+        }
+        
+        #chat-messages div {
+            padding: 10px 15px;
+            border-radius: 18px;
+            max-width: 85%;
+            margin-bottom: 10px;
+            word-wrap: break-word;
+            line-height: 1.4;
+            position: relative;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .bot-message {
+            background-color: #e1f5fe;
+            align-self: flex-start;
+            margin-right: auto;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .user-message {
+            background-color: #e8f5e9;
+            align-self: flex-end;
+            margin-left: auto;
+            border-bottom-right-radius: 5px;
+        }
+        
+        #chat-input-container {
+            display: flex;
+            border-top: 1px solid #ddd;
+            padding: 10px;
+            background-color: white;
+        }
+        
+        #chat-input {
+            flex: 1;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        #chat-input:focus {
+            border-color: var(--primary);
+        }
+        
+        #chat-send {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            margin-left: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        
+        #chat-send:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .chat-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s, background-color 0.3s;
+            box-shadow: 0 4px 12px rgba(0, 86, 179, 0.3);
+        }
+        
+        .chat-button:hover {
+            transform: scale(1.05);
+        }
+        
+        .chat-button.active {
+            background-color: #e74c3c;
+        }
+        
+        .chat-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px;
+            font-weight: 600;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .chat-header-title {
+            display: flex;
+            align-items: center;
+        }
+        
+        .chat-header-title img {
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+            border-radius: 50%;
+        }
+        
+        .chat-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .chat-close:hover {
+            opacity: 1;
+        }
+        
+        .quick-replies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+        
+        .quick-reply-btn {
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            padding: 6px 12px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        
+        .quick-reply-btn:hover {
+            background-color: #e0e0e0;
+            border-color: #ccc;
+        }
+        
+        .typing-indicator {
+            display: flex;
+            padding: 10px 15px;
+            background-color: #e1f5fe;
+            border-radius: 18px;
+            align-self: flex-start;
+            margin-bottom: 10px;
+            width: fit-content;
+        }
+        
+        .typing-indicator span {
+            height: 8px;
+            width: 8px;
+            margin: 0 2px;
+            background-color: #0056b3;
+            border-radius: 50%;
+            display: inline-block;
+            opacity: 0.4;
+        }
+        
+        .typing-indicator span:nth-child(1) {
+            animation: pulse 1s infinite;
+        }
+        
+        .typing-indicator span:nth-child(2) {
+            animation: pulse 1s infinite 0.2s;
+        }
+        
+        .typing-indicator span:nth-child(3) {
+            animation: pulse 1s infinite 0.4s;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 0.4; transform: scale(1); }
+        }
+        
+        @media (max-width: 576px) {
+            #chat-widget {
+                width: 300px;
+                bottom: 80px;
+                right: 10px;
+            }
+            
+            .chat-button {
+                bottom: 15px;
+                right: 15px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1273,10 +1486,29 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 InkTec. Todos os direitos reservados.</p>
+                <p>&copy; 2023 InkTec. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
+
+    <!-- Chat Widget -->
+    <div id="chat-widget" style="position: fixed; bottom: 20px; right: 20px; width: 320px; max-height: 500px; background: white; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); overflow: hidden; font-family: Arial, sans-serif; display: none; flex-direction: column; z-index: 1999;">
+      <div class="chat-header">
+        <div class="chat-header-title">
+          <img src="https://i.postimg.cc/76Ngdx1Q/LOGO-DO-CABE-ALHO.png" alt="InkTec Logo">
+          <span>Atendimento InkTec</span>
+        </div>
+        <button class="chat-close" onclick="toggleChat()">&times;</button>
+      </div>
+      <div id="chat-messages"></div>
+      <div id="chat-input-container">
+        <input id="chat-input" type="text" placeholder="Digite sua mensagem..." autocomplete="off">
+        <button id="chat-send"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+    <button onclick="toggleChat()" class="chat-button" style="position: fixed; bottom: 20px; right: 20px; background: #0056b3; color: white; border: none; border-radius: 50%; width: 60px; height: 60px; font-size: 24px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); cursor: pointer; z-index: 1998;">
+      <i class="fas fa-comments"></i>
+    </button>
 
     <script>
         // Adicionar um manipulador de erros global para depuração
@@ -1435,18 +1667,17 @@
             const message = document.getElementById('message').value.trim();
             
             // Prepare template parameters
-           const templateParams = {
-             from_name: name,
-             from_email: email,
-             from_phone: phone,
-             subject: subject,
-             message: message
-           }; 
+            const templateParams = {
+                from_name: name,
+                from_email: email,
+                from_phone: phone,
+                subject: subject,
+                message: message
+            };
             
             console.log("Enviando email com os parâmetros:", templateParams);
             
-            // Alternativa: usar o método de envio direto sem template
-            // Isso pode ajudar a contornar problemas com templates não configurados
+            // Enviar email usando o ID de serviço correto
             emailjs.send('service_m5yle4m', 'template_2y6az6d', templateParams)
                 .then(function(response) {
                     console.log('SUCCESS!', response.status, response.text);
@@ -1492,6 +1723,242 @@
                     cancelEmailBtn.disabled = false;
                 });
         });
+
+        // Chat Widget Functions
+        const chatWidget = document.getElementById("chat-widget");
+        const chatMessages = document.getElementById("chat-messages");
+        const chatInput = document.getElementById("chat-input");
+        const chatSend = document.getElementById("chat-send");
+        const chatButton = document.querySelector(".chat-button");
+        
+        // Banco de respostas comuns
+        const commonResponses = {
+            greeting: [
+                "Olá! Seja bem-vindo(a) ao atendimento virtual da InkTec. Como posso ajudar você hoje?",
+                "Oi! Que bom ter você por aqui. Em que posso ser útil?",
+                "Olá! Sou o assistente virtual da InkTec. Como posso ajudar?"
+            ],
+            farewell: [
+                "Obrigado pelo contato! Se precisar de mais alguma coisa, estamos à disposição.",
+                "Foi um prazer ajudar! Tenha um ótimo dia.",
+                "Até logo! Estamos sempre à disposição para ajudar."
+            ],
+            thanks: [
+                "Por nada! Estou aqui para ajudar.",
+                "Disponha! Se precisar de mais alguma coisa, é só perguntar.",
+                "De nada! Fico feliz em poder ajudar."
+            ],
+            products: [
+                "A InkTec oferece diversas soluções em automação comercial, como PDV, E-Trade, VR Pedidos, Módulo Gourmet e Gestor VR. Qual delas você gostaria de conhecer melhor?",
+                "Temos várias soluções para seu negócio! Nossos principais produtos são: PDV (ponto de venda), E-Trade (gestão empresarial), VR Pedidos (força de vendas), Módulo Gourmet (para restaurantes) e Gestor VR (para gestores). Sobre qual você quer saber mais?"
+            ],
+            pdv: [
+                "Nosso PDV (Ponto de Venda) é um sistema completo para gerenciamento de vendas no balcão, com interface intuitiva e recursos avançados. Ele oferece agilidade no atendimento, emissão de cupom fiscal, funcionamento offline e fechamento de caixa seguro. Gostaria de agendar uma demonstração?"
+            ],
+            etrade: [
+                "O E-Trade é nossa solução completa para gestão empresarial, integrando todos os setores da sua empresa. Ele oferece controle financeiro completo, relatórios personalizados, controle de estoque avançado e controle de pedidos e expedição. Posso agendar uma demonstração para você?"
+            ],
+            vrpedidos: [
+                "O VR Pedidos é um aplicativo para força de vendas externa, permitindo realizar pedidos mesmo sem conexão com internet. Ele oferece vendas online, catálogo virtual, é isento de taxas e permite gerenciamento do delivery. Gostaria de conhecer mais sobre essa solução?"
+            ],
+            gourmet: [
+                "O Módulo Gourmet é um sistema especializado para restaurantes, bares e estabelecimentos do setor alimentício. Ele oferece controle de mesas e comandas, comissão por produto ou garçom, app para celular android e máquina de cartão, além de integração com PDV. Posso agendar uma demonstração para você?"
+            ],
+            gestorvr: [
+                "O Gestor VR é um software voltado à gestão da empresa, possibilitando a análise, planejamento e acompanhamento do seu negócio. Ele oferece mobilidade para o gestor, visão consolidada de múltiplas filiais, análise de informações comerciais do dia, acompanhamento de vendas online e informações em tempo real. Gostaria de saber mais?"
+            ],
+            contact: [
+                "Você pode entrar em contato conosco pelo telefone (22) 2653-2359, pelo WhatsApp (22) 98870-0112 ou pelo e-mail inktec@inktec.app.br. Também pode nos visitar em nossa sede: Rua Segisfredo bravo 115, sala 03, Bacaxá - Saquarema - RJ. Nosso horário de atendimento é de segunda a sexta, das 8:30 às 18hrs, e aos sábados, das 9hrs às 13hrs."
+            ],
+            price: [
+                "Os valores de nossos produtos variam conforme as necessidades específicas de cada cliente e os módulos contratados. Para receber um orçamento personalizado, por favor, entre em contato com nossa equipe comercial pelo WhatsApp (22) 98870-0112 ou pelo e-mail inktec@inktec.app.br. Teremos prazer em preparar uma proposta sob medida para o seu negócio."
+            ],
+            support: [
+                "Para suporte técnico, você pode entrar em contato pelo telefone (22) 2653-2359 ou pelo WhatsApp (22) 98870-0112. Nossa equipe de suporte está disponível de segunda a sexta, das 8:30 às 18hrs, e aos sábados, das 9hrs às 13hrs. Também pode enviar um e-mail para inktec@inktec.app.br detalhando sua necessidade."
+            ],
+            default: [
+                "Desculpe, não consegui entender completamente sua pergunta. Poderia reformular ou escolher um dos tópicos: produtos, preços, contato ou suporte?",
+                "Hmm, não tenho certeza se entendi corretamente. Para melhor atendimento, você pode entrar em contato diretamente com nossa equipe pelo WhatsApp (22) 98870-0112 ou pelo telefone (22) 2653-2359."
+            ]
+        };
+
+        // Função para verificar se a mensagem contém determinadas palavras-chave
+        function checkKeywords(message, keywords) {
+            message = message.toLowerCase();
+            return keywords.some(keyword => message.includes(keyword.toLowerCase()));
+        }
+
+        // Função para obter resposta com base nas palavras-chave
+        function getResponse(message) {
+            if (checkKeywords(message, ['olá', 'oi', 'bom dia', 'boa tarde', 'boa noite', 'tudo bem', 'como vai'])) {
+                return getRandomResponse(commonResponses.greeting);
+            } else if (checkKeywords(message, ['tchau', 'até logo', 'até mais', 'adeus'])) {
+                return getRandomResponse(commonResponses.farewell);
+            } else if (checkKeywords(message, ['obrigado', 'obrigada', 'valeu', 'agradeço'])) {
+                return getRandomResponse(commonResponses.thanks);
+            } else if (checkKeywords(message, ['produtos', 'serviços', 'soluções', 'o que vocês oferecem', 'o que vocês vendem'])) {
+                return getRandomResponse(commonResponses.products);
+            } else if (checkKeywords(message, ['pdv', 'ponto de venda', 'caixa'])) {
+                return getRandomResponse(commonResponses.pdv);
+            } else if (checkKeywords(message, ['e-trade', 'etrade', 'gestão empresarial'])) {
+                return getRandomResponse(commonResponses.etrade);
+            } else if (checkKeywords(message, ['vr pedidos', 'vrpedidos', 'força de vendas', 'vendas externas'])) {
+                return getRandomResponse(commonResponses.vrpedidos);
+            } else if (checkKeywords(message, ['gourmet', 'restaurante', 'bar', 'comanda'])) {
+                return getRandomResponse(commonResponses.gourmet);
+            } else if (checkKeywords(message, ['gestor vr', 'gestorvr', 'gestão'])) {
+                return getRandomResponse(commonResponses.gestorvr);
+            } else if (checkKeywords(message, ['contato', 'telefone', 'endereço', 'email', 'e-mail', 'onde vocês ficam'])) {
+                return getRandomResponse(commonResponses.contact);
+            } else if (checkKeywords(message, ['preço', 'valor', 'custo', 'quanto custa', 'orçamento'])) {
+                return getRandomResponse(commonResponses.price);
+            } else if (checkKeywords(message, ['suporte', 'ajuda', 'problema', 'dificuldade', 'erro'])) {
+                return getRandomResponse(commonResponses.support);
+            } else {
+                return getRandomResponse(commonResponses.default);
+            }
+        }
+
+        // Função para obter uma resposta aleatória de um array
+        function getRandomResponse(responses) {
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
+
+        // Variável para controlar se o chat já foi aberto antes
+        let chatOpened = false;
+
+        function toggleChat() {
+            if (chatWidget.style.display === "flex") {
+                chatWidget.style.display = "none";
+                chatButton.classList.remove("active");
+            } else {
+                chatWidget.style.display = "flex";
+                chatButton.classList.add("active");
+                chatInput.focus();
+                
+                // Se for a primeira vez que o chat é aberto, mostrar mensagem de boas-vindas
+                if (!chatOpened) {
+                    chatOpened = true;
+                    
+                    // Adicionar mensagem de boas-vindas com delay para parecer mais natural
+                    setTimeout(() => {
+                        appendMessage("bot", "Olá! 👋 Seja bem-vindo(a) ao atendimento virtual da InkTec.");
+                        
+                        setTimeout(() => {
+                            appendMessage("bot", "Sou o assistente virtual e estou aqui para ajudar com informações sobre nossos produtos e serviços de automação comercial.");
+                            
+                            setTimeout(() => {
+                                appendMessage("bot", "Como posso ajudar você hoje?");
+                                
+                                // Adicionar botões de resposta rápida
+                                addQuickReplies([
+                                    "Quais produtos vocês oferecem?",
+                                    "Preciso de um orçamento",
+                                    "Como entro em contato?",
+                                    "Preciso de suporte técnico"
+                                ]);
+                            }, 800);
+                        }, 800);
+                    }, 500);
+                }
+            }
+        }
+
+        function appendMessage(sender, text) {
+            const msg = document.createElement("div");
+            msg.className = sender === "user" ? "user-message" : "bot-message";
+            msg.innerHTML = text;
+            chatMessages.appendChild(msg);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function addQuickReplies(options) {
+            const quickRepliesContainer = document.createElement("div");
+            quickRepliesContainer.className = "quick-replies";
+            
+            options.forEach(option => {
+                const button = document.createElement("button");
+                button.className = "quick-reply-btn";
+                button.textContent = option;
+                button.addEventListener("click", () => {
+                    handleUserMessage(option);
+                });
+                quickRepliesContainer.appendChild(button);
+            });
+            
+            chatMessages.appendChild(quickRepliesContainer);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const typingIndicator = document.createElement("div");
+            typingIndicator.className = "typing-indicator";
+            typingIndicator.id = "typing-indicator";
+            typingIndicator.innerHTML = '<span></span><span></span><span></span>';
+            chatMessages.appendChild(typingIndicator);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const typingIndicator = document.getElementById("typing-indicator");
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        function handleUserMessage(message) {
+            // Adicionar mensagem do usuário
+            appendMessage("user", message);
+            chatInput.value = "";
+            
+            // Remover botões de resposta rápida anteriores
+            const quickReplies = document.querySelector(".quick-replies");
+            if (quickReplies) {
+                quickReplies.remove();
+            }
+            
+            // Mostrar indicador de digitação
+            showTypingIndicator();
+            
+            // Simular tempo de resposta para parecer mais natural
+            setTimeout(() => {
+                removeTypingIndicator();
+                
+                // Obter resposta com base nas palavras-chave
+                const response = getResponse(message);
+                appendMessage("bot", response);
+                
+                // Adicionar botões de resposta rápida relevantes com base na mensagem do usuário
+                if (checkKeywords(message, ['produtos', 'serviços', 'soluções'])) {
+                    addQuickReplies(["PDV", "E-Trade", "VR Pedidos", "Módulo Gourmet", "Gestor VR"]);
+                } else if (checkKeywords(message, ['pdv', 'e-trade', 'vr pedidos', 'gourmet', 'gestor vr'])) {
+                    addQuickReplies(["Quero um orçamento", "Agendar demonstração", "Mais informações"]);
+                } else if (checkKeywords(message, ['preço', 'valor', 'custo', 'orçamento'])) {
+                    addQuickReplies(["Falar com consultor", "Agendar demonstração", "Ver outros produtos"]);
+                } else {
+                    // Botões padrão para continuar a conversa
+                    addQuickReplies(["Produtos", "Preços", "Contato", "Suporte"]);
+                }
+                
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1000 + Math.random() * 1000); // Tempo de resposta entre 1-2 segundos
+        }
+
+        chatSend.addEventListener("click", () => {
+            const message = chatInput.value.trim();
+            if (message) {
+                handleUserMessage(message);
+            }
+        });
+
+        chatInput.addEventListener("keypress", e => {
+            if (e.key === "Enter") {
+                const message = chatInput.value.trim();
+                if (message) {
+                    handleUserMessage(message);
+                }
+            }
+        });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96546c3f04e4ba31',t:'MTc1MzUzODQyMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9664558523c9df53',t:'MTc1MzcwNTI2My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
