@@ -1731,6 +1731,15 @@
         const chatSend = document.getElementById("chat-send");
         const chatButton = document.querySelector(".chat-button");
         
+        // Contatos do setor financeiro
+        const financialContacts = {
+            whatsapp1: "5522981059923", // Primeiro contato financeiro
+            whatsapp2: "5522988464013"  // Segundo contato financeiro
+        };
+        
+        // Contato de suporte técnico
+        const supportContact = "5522988700112";
+        
         // Banco de respostas comuns
         const commonResponses = {
             greeting: [
@@ -1771,7 +1780,7 @@
                 "Você pode entrar em contato conosco pelo telefone (22) 2653-2359, pelo WhatsApp (22) 98870-0112 ou pelo e-mail inktec@inktec.app.br. Também pode nos visitar em nossa sede: Rua Segisfredo bravo 115, sala 03, Bacaxá - Saquarema - RJ. Nosso horário de atendimento é de segunda a sexta, das 8:30 às 18hrs, e aos sábados, das 9hrs às 13hrs."
             ],
             price: [
-                "Os valores de nossos produtos variam conforme as necessidades específicas de cada cliente e os módulos contratados. Para receber um orçamento personalizado, por favor, entre em contato com nossa equipe comercial pelo WhatsApp (22) 98870-0112 ou pelo e-mail inktec@inktec.app.br. Teremos prazer em preparar uma proposta sob medida para o seu negócio."
+                "Para informações sobre preços e orçamentos, você pode entrar em contato diretamente com nosso setor financeiro pelos WhatsApps: (22) 98105-9923 ou (22) 98846-4013. Nossa equipe financeira está pronta para preparar uma proposta personalizada para o seu negócio."
             ],
             support: [
                 "Para suporte técnico, você pode entrar em contato pelo telefone (22) 2653-2359 ou pelo WhatsApp (22) 98870-0112. Nossa equipe de suporte está disponível de segunda a sexta, das 8:30 às 18hrs, e aos sábados, das 9hrs às 13hrs. Também pode enviar um e-mail para inktec@inktec.app.br detalhando sua necessidade."
@@ -1779,6 +1788,9 @@
             default: [
                 "Desculpe, não consegui entender completamente sua pergunta. Poderia reformular ou escolher um dos tópicos: produtos, preços, contato ou suporte?",
                 "Hmm, não tenho certeza se entendi corretamente. Para melhor atendimento, você pode entrar em contato diretamente com nossa equipe pelo WhatsApp (22) 98870-0112 ou pelo telefone (22) 2653-2359."
+            ],
+            financial: [
+                "Para assuntos relacionados a orçamentos, preços e condições comerciais, você pode entrar em contato diretamente com nosso setor financeiro pelos WhatsApps: (22) 98105-9923 ou (22) 98846-4013. Deseja que eu te encaminhe para um desses contatos?"
             ]
         };
 
@@ -1810,9 +1822,9 @@
                 return getRandomResponse(commonResponses.gestorvr);
             } else if (checkKeywords(message, ['contato', 'telefone', 'endereço', 'email', 'e-mail', 'onde vocês ficam'])) {
                 return getRandomResponse(commonResponses.contact);
-            } else if (checkKeywords(message, ['preço', 'valor', 'custo', 'quanto custa', 'orçamento'])) {
-                return getRandomResponse(commonResponses.price);
-            } else if (checkKeywords(message, ['suporte', 'ajuda', 'problema', 'dificuldade', 'erro'])) {
+            } else if (checkKeywords(message, ['preço', 'valor', 'custo', 'quanto custa', 'orçamento', 'financeiro', 'comprar', 'adquirir'])) {
+                return getRandomResponse(commonResponses.financial);
+            } else if (checkKeywords(message, ['suporte', 'ajuda', 'problema', 'dificuldade', 'erro', 'dúvida', 'como usar'])) {
                 return getRandomResponse(commonResponses.support);
             } else {
                 return getRandomResponse(commonResponses.default);
@@ -1906,6 +1918,12 @@
             }
         }
 
+        // Função para abrir o WhatsApp com o número especificado
+        function openWhatsApp(phoneNumber, message) {
+            const encodedMessage = encodeURIComponent(message || "Olá! Gostaria de informações sobre os produtos da InkTec.");
+            window.open(`https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`, '_blank');
+        }
+
         function handleUserMessage(message) {
             // Adicionar mensagem do usuário
             appendMessage("user", message);
@@ -1920,6 +1938,89 @@
             // Mostrar indicador de digitação
             showTypingIndicator();
             
+            // Verificar se é uma solicitação direta para falar com o financeiro ou suporte
+            if (message.toLowerCase().includes("falar com financeiro (whatsapp 1)")) {
+                setTimeout(() => {
+                    removeTypingIndicator();
+                    appendMessage("bot", "Estou te redirecionando para o WhatsApp do nosso primeiro contato financeiro (22) 98105-9923. Aguarde um momento...");
+                    
+                    // Abrir WhatsApp para o primeiro contato financeiro
+                    setTimeout(() => {
+                        openWhatsApp(financialContacts.whatsapp1, "Olá! Gostaria de informações sobre preços e orçamentos dos produtos da InkTec.");
+                    }, 500);
+                    
+                    addQuickReplies(["Voltar ao menu principal", "Falar com financeiro (WhatsApp 2)"]);
+                }, 1000);
+                return;
+            } 
+            else if (message.toLowerCase().includes("falar com financeiro (whatsapp 2)")) {
+                setTimeout(() => {
+                    removeTypingIndicator();
+                    appendMessage("bot", "Estou te redirecionando para o WhatsApp do nosso segundo contato financeiro (22) 98846-4013. Aguarde um momento...");
+                    
+                    // Abrir WhatsApp para o segundo contato financeiro
+                    setTimeout(() => {
+                        openWhatsApp(financialContacts.whatsapp2, "Olá! Gostaria de informações sobre preços e orçamentos dos produtos da InkTec.");
+                    }, 500);
+                    
+                    addQuickReplies(["Voltar ao menu principal", "Falar com financeiro (WhatsApp 1)"]);
+                }, 1000);
+                return;
+            }
+            else if (message.toLowerCase().includes("falar com suporte (whatsapp)")) {
+                setTimeout(() => {
+                    removeTypingIndicator();
+                    appendMessage("bot", "Estou te redirecionando para o WhatsApp do nosso suporte técnico (22) 98870-0112. Aguarde um momento...");
+                    
+                    // Abrir WhatsApp para o contato de suporte
+                    setTimeout(() => {
+                        openWhatsApp(supportContact, "Olá! Preciso de suporte técnico para um produto da InkTec.");
+                    }, 500);
+                    
+                    addQuickReplies(["Voltar ao menu principal"]);
+                }, 1000);
+                return;
+            }
+            else if (message.toLowerCase().includes("agendar demonstração") || message.toLowerCase().includes("agendar demonstracao")) {
+                setTimeout(() => {
+                    removeTypingIndicator();
+                    appendMessage("bot", "Ótimo! Para agendar uma demonstração dos nossos produtos, você pode falar diretamente com nossa equipe comercial. Vou te redirecionar para o WhatsApp. Aguarde um momento...");
+                    
+                    // Abrir WhatsApp para o contato comercial (usando o suporte neste caso)
+                    setTimeout(() => {
+                        openWhatsApp(supportContact, "Olá! Gostaria de agendar uma demonstração dos produtos da InkTec.");
+                    }, 500);
+                    
+                    addQuickReplies(["Voltar ao menu principal", "Conhecer outros produtos"]);
+                }, 1000);
+                return;
+            }
+            else if (message.toLowerCase().includes("quero um orçamento")) {
+                setTimeout(() => {
+                    removeTypingIndicator();
+                    appendMessage("bot", "Para solicitar um orçamento, você pode falar diretamente com nosso setor financeiro. Com qual contato você prefere falar?");
+                    
+                    addQuickReplies([
+                        "Falar com financeiro (WhatsApp 1)", 
+                        "Falar com financeiro (WhatsApp 2)", 
+                        "Voltar ao menu principal"
+                    ]);
+                }, 1000);
+                return;
+            }
+            else if (message.toLowerCase().includes("preciso de suporte técnico")) {
+                setTimeout(() => {
+                    removeTypingIndicator();
+                    appendMessage("bot", "Para suporte técnico, você pode entrar em contato diretamente com nossa equipe especializada pelo WhatsApp (22) 98870-0112. Deseja que eu te redirecione agora?");
+                    
+                    addQuickReplies([
+                        "Falar com suporte (WhatsApp)", 
+                        "Voltar ao menu principal"
+                    ]);
+                }, 1000);
+                return;
+            }
+            
             // Simular tempo de resposta para parecer mais natural
             setTimeout(() => {
                 removeTypingIndicator();
@@ -1929,12 +2030,52 @@
                 appendMessage("bot", response);
                 
                 // Adicionar botões de resposta rápida relevantes com base na mensagem do usuário
-                if (checkKeywords(message, ['produtos', 'serviços', 'soluções'])) {
+                if (checkKeywords(message, ['produtos', 'serviços', 'soluções', 'quais produtos vocês oferecem'])) {
                     addQuickReplies(["PDV", "E-Trade", "VR Pedidos", "Módulo Gourmet", "Gestor VR"]);
                 } else if (checkKeywords(message, ['pdv', 'e-trade', 'vr pedidos', 'gourmet', 'gestor vr'])) {
                     addQuickReplies(["Quero um orçamento", "Agendar demonstração", "Mais informações"]);
-                } else if (checkKeywords(message, ['preço', 'valor', 'custo', 'orçamento'])) {
-                    addQuickReplies(["Falar com consultor", "Agendar demonstração", "Ver outros produtos"]);
+                } else if (checkKeywords(message, ['preço', 'valor', 'custo', 'orçamento', 'financeiro', 'comprar', 'quero um orçamento', 'preciso de um orçamento'])) {
+                    // Opções específicas para contato com o setor financeiro
+                    addQuickReplies([
+                        "Falar com financeiro (WhatsApp 1)", 
+                        "Falar com financeiro (WhatsApp 2)", 
+                        "Ver produtos"
+                    ]);
+                } else if (checkKeywords(message, ['suporte', 'ajuda', 'problema', 'dúvida', 'como usar'])) {
+                    // Opções específicas para suporte técnico
+                    addQuickReplies([
+                        "Falar com suporte (WhatsApp)", 
+                        "Informações de contato", 
+                        "Voltar ao menu principal"
+                    ]);
+                } else if (checkKeywords(message, ['contato', 'como entro em contato', 'telefone', 'endereço', 'email'])) {
+                    // Opções para contato
+                    addQuickReplies([
+                        "Falar com suporte (WhatsApp)",
+                        "Falar com financeiro (WhatsApp 1)",
+                        "Voltar ao menu principal"
+                    ]);
+                } else if (checkKeywords(message, ['voltar ao menu principal'])) {
+                    // Voltar ao menu principal
+                    appendMessage("bot", "Como posso ajudar você hoje?");
+                    addQuickReplies([
+                        "Quais produtos vocês oferecem?",
+                        "Preciso de um orçamento",
+                        "Como entro em contato?",
+                        "Preciso de suporte técnico"
+                    ]);
+                } else if (checkKeywords(message, ['conhecer outros produtos'])) {
+                    // Mostrar produtos
+                    appendMessage("bot", "Claro! A InkTec oferece diversas soluções em automação comercial. Qual você gostaria de conhecer?");
+                    addQuickReplies(["PDV", "E-Trade", "VR Pedidos", "Módulo Gourmet", "Gestor VR"]);
+                } else if (checkKeywords(message, ['mais informações'])) {
+                    // Mais informações
+                    appendMessage("bot", "Para mais informações detalhadas sobre nossos produtos, você pode:");
+                    addQuickReplies([
+                        "Agendar demonstração",
+                        "Falar com suporte (WhatsApp)",
+                        "Ver outros produtos"
+                    ]);
                 } else {
                     // Botões padrão para continuar a conversa
                     addQuickReplies(["Produtos", "Preços", "Contato", "Suporte"]);
@@ -1960,5 +2101,5 @@
             }
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9664558523c9df53',t:'MTc1MzcwNTI2My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9664cf671087644f',t:'MTc1MzcxMDI1NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
