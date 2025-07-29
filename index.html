@@ -1123,6 +1123,32 @@
             50% { transform: scale(1.1); }
             100% { transform: scale(1); }
         }
+
+        /* Saneamento Fiscal Styles */
+        .fiscal-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .fiscal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .fiscal-card h4 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .fiscal-card p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
@@ -1141,6 +1167,7 @@
                     <li><a href="#inicio">Início</a></li>
                     <li><a href="#quem-somos">Quem Somos</a></li>
                     <li><a href="#solucoes">Soluções</a></li>
+                    <li><a href="#ia">IA</a></li>
                     <li><a href="#por-que-nos">Por Que Nos Escolher</a></li>
                     <li><a href="#contato">Contato</a></li>
                 </ul>
@@ -1274,6 +1301,51 @@
                             <li><i class="fas fa-check-circle"></i> Informações em tempo real</li>
                         </ul>
                         <a href="#contato" class="solution-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-image" style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+                        <!-- Background Pattern -->
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 2px, transparent 2px), radial-gradient(circle at 80% 70%, rgba(255,255,255,0.1) 2px, transparent 2px), radial-gradient(circle at 40% 80%, rgba(255,255,255,0.1) 2px, transparent 2px), radial-gradient(circle at 90% 20%, rgba(255,255,255,0.1) 2px, transparent 2px); background-size: 50px 50px, 60px 60px, 40px 40px, 70px 70px;"></div>
+                        
+                        <!-- Content -->
+                        <div style="text-align: center; color: white; z-index: 2; position: relative;">
+                            <div style="margin-bottom: 15px;">
+                                <div style="font-size: 28px; font-weight: bold; margin-bottom: 5px; position: relative;">
+                                    <span style="position: relative;">
+                                        imendes
+                                        <span style="position: absolute; top: -3px; left: -8px; width: 16px; height: 16px; background: #fbbf24; border-radius: 50%; transform: rotate(-45deg);"></span>
+                                    </span>
+                                </div>
+                                <div style="font-size: 10px; opacity: 0.9; letter-spacing: 1px;">INOVAÇÃO TRIBUTÁRIA</div>
+                            </div>
+                            <div style="font-size: 12px; font-weight: 500; margin-bottom: 10px;">Parceria InkTec</div>
+                            <div style="display: flex; justify-content: center; gap: 15px;">
+                                <div style="text-align: center; font-size: 10px; opacity: 0.8;">
+                                    <div style="font-size: 14px; margin-bottom: 3px;">📊</div>
+                                    <div>Análise</div>
+                                </div>
+                                <div style="text-align: center; font-size: 10px; opacity: 0.8;">
+                                    <div style="font-size: 14px; margin-bottom: 3px;">🔄</div>
+                                    <div>Sincronização</div>
+                                </div>
+                                <div style="text-align: center; font-size: 10px; opacity: 0.8;">
+                                    <div style="font-size: 14px; margin-bottom: 3px;">✅</div>
+                                    <div>Conformidade</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="solution-content">
+                        <h3>Saneamento Fiscal</h3>
+                        <p>Integração com IMendes para manter seu cadastro de produtos sempre atualizado com as regras fiscais mais recentes.</p>
+                        <ul class="solution-features">
+                            <li><i class="fas fa-check-circle"></i> Redução de custos na gestão</li>
+                            <li><i class="fas fa-check-circle"></i> Documentos fiscais seguros</li>
+                            <li><i class="fas fa-check-circle"></i> Atualização automática</li>
+                            <li><i class="fas fa-check-circle"></i> Parceria com IMendes</li>
+                        </ul>
+                        <a href="saneamento-fiscal.html" class="solution-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -1672,6 +1744,8 @@
     <button onclick="toggleChat()" class="chat-button" style="position: fixed; bottom: 20px; right: 20px; background: #0056b3; color: white; border: none; border-radius: 50%; width: 60px; height: 60px; font-size: 24px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); cursor: pointer; z-index: 1998;">
       <i class="fas fa-comments"></i>
     </button>
+
+
 
     <script>
         // Adicionar um manipulador de erros global para depuração
