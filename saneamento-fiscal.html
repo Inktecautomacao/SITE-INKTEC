@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saneamento Fiscal - InkTec Automação</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0056b3;
+            --primary-dark: #004494;
+            --secondary: #00a0e3;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --gray: #6c757d;
+            --white: #ffffff;
+            --success: #28a745;
+            --danger: #dc3545;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 60px;
+        }
+        
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: var(--primary);
+            margin-left: 15px;
+            font-size: 20px;
+            letter-spacing: 1px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            margin-left: 30px;
+        }
+        
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+        
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--dark);
+            cursor: pointer;
+        }
+        
+        /* Section Styles */
+        .section {
+            padding: 100px 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 3px;
+            background-color: var(--secondary);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 86, 179, 0.8), rgba(0, 160, 227, 0.8)), url('https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            color: var(--white);
+            margin-top: 90px;
+        }
+        
+        .hero-content {
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: 2px solid var(--primary);
+        }
+        
+        .btn:hover {
+            background-color: transparent;
+            color: var(--white);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--white);
+            margin-left: 15px;
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--white);
+            color: var(--primary);
+        }
+        
+        /* Saneamento Fiscal Styles */
+        .fiscal-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .fiscal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .fiscal-card h4 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .fiscal-card p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a1a1a;
+            color: var(--white);
+            padding: 70px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h4 {
+            font-size: 18px;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-column p {
+            color: #bbb;
+            margin-bottom: 20px;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-column ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        /* Social Links */
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--white);
+            color: var(--primary);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            color: #bbb;
+            font-size: 14px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 90px;
+                left: -100%;
+                width: 100%;
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                transition: left 0.3s;
+                z-index: 999;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-menu li {
+                margin: 15px 0;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .section-title {
+                font-size: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .section-title {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="https://i.postimg.cc/76Ngdx1Q/LOGO-DO-CABE-ALHO.png" alt="InkTec Logo">
+                <div class="logo-text">InkTec Automação</div>
+            </div>
+            <button class="mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="index.html#quem-somos">Quem Somos</a></li>
+                    <li><a href="index.html#solucoes">Soluções</a></li>
+                    <li><a href="index.html#ia">IA</a></li>
+                    <li><a href="index.html#por-que-nos">Por Que Nos Escolher</a></li>
+                    <li><a href="index.html#contato">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Saneamento Fiscal</h1>
+                <p>Integração com IMendes para tranquilidade fiscal total</p>
+                <div class="hero-buttons">
+                    <a href="#como-funciona" class="btn">Como Funciona</a>
+                    <a href="https://wa.me/5522988700112?text=Olá! Gostaria de solicitar um orçamento para o módulo de Saneamento Fiscal com integração IMendes. Podem me ajudar?" class="btn btn-outline" target="_blank">Solicitar Orçamento</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Saneamento Fiscal Section -->
+    <section id="saneamento-fiscal" class="section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" style="color: white;">SANEAMENTO FISCAL</h2>
+                <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">Integração com IMendes para tranquilidade fiscal total</p>
+            </div>
+            
+            <!-- Partnership Highlight -->
+            <div style="text-align: center; margin-bottom: 50px; background: rgba(255,255,255,0.1); border-radius: 20px; padding: 30px; backdrop-filter: blur(10px);">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                    <div style="background: rgba(255,255,255,0.2); border-radius: 15px; padding: 20px; margin-right: 20px;">
+                        <i class="fas fa-shield-alt" style="font-size: 40px; color: white;"></i>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 28px; margin-bottom: 10px; font-weight: 600;">Parceria com IMendes</h3>
+                        <p style="font-size: 18px; opacity: 0.9;">Uma das maiores empresas de saneamento fiscal do Brasil</p>
+                    </div>
+                </div>
+                <p style="font-size: 16px; opacity: 0.8; max-width: 800px; margin: 0 auto;">Mantenha seu cadastro de produtos sempre atualizado com as regras fiscais mais recentes, evitando multas e otimizando impostos através da integração automática com a IMendes.</p>
+            </div>
+
+            <!-- Benefits Grid -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 50px;">
+                <!-- Card 1 -->
+                <div class="fiscal-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                        <div style="background: rgba(255,255,255,0.2); border-radius: 12px; padding: 15px; margin-right: 20px;">
+                            <i class="fas fa-coins" style="font-size: 24px; color: #FFD700;"></i>
+                        </div>
+                        <h4 style="font-size: 20px; font-weight: 600; margin: 0;">Redução de Custos</h4>
+                    </div>
+                    <p style="opacity: 0.9; line-height: 1.6; margin: 0;">Reduza significativamente os custos na gestão dos cadastros de itens e evite multas por classificação incorreta de produtos.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="fiscal-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                        <div style="background: rgba(255,255,255,0.2); border-radius: 12px; padding: 15px; margin-right: 20px;">
+                            <i class="fas fa-file-invoice" style="font-size: 24px; color: #90EE90;"></i>
+                        </div>
+                        <h4 style="font-size: 20px; font-weight: 600; margin: 0;">Documentos Fiscais Seguros</h4>
+                    </div>
+                    <p style="opacity: 0.9; line-height: 1.6; margin: 0;">Elimine problemas na emissão de documentos fiscais com cadastros sempre corretos e atualizados automaticamente.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="fiscal-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                        <div style="background: rgba(255,255,255,0.2); border-radius: 12px; padding: 15px; margin-right: 20px;">
+                            <i class="fas fa-sync-alt" style="font-size: 24px; color: #87CEEB;"></i>
+                        </div>
+                        <h4 style="font-size: 20px; font-weight: 600; margin: 0;">Atualização Automática</h4>
+                    </div>
+                    <p style="opacity: 0.9; line-height: 1.6; margin: 0;">Sincronização constante com as regras fiscais mais recentes, sem necessidade de intervenção manual.</p>
+                </div>
+            </div>
+
+            <!-- How it Works -->
+            <div id="como-funciona" style="background: rgba(255,255,255,0.1); border-radius: 20px; padding: 40px; backdrop-filter: blur(10px);">
+                <h3 style="text-align: center; font-size: 24px; margin-bottom: 30px; font-weight: 600;">Como Funciona a Integração</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px;">
+                    <div style="text-align: center;">
+                        <div style="background: rgba(255,255,255,0.2); border-radius: 50%; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                            <span style="font-size: 24px; font-weight: bold;">1</span>
+                        </div>
+                        <h4 style="font-size: 18px; margin-bottom: 10px;">Envio Automático</h4>
+                        <p style="opacity: 0.8; font-size: 14px;">O Bridge envia seu cadastro de produtos para a IMendes</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="background: rgba(255,255,255,0.2); border-radius: 50%; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                            <span style="font-size: 24px; font-weight: bold;">2</span>
+                        </div>
+                        <h4 style="font-size: 18px; margin-bottom: 10px;">Análise Especializada</h4>
+                        <p style="opacity: 0.8; font-size: 14px;">Equipe da IMendes analisa e classifica os produtos</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="background: rgba(255,255,255,0.2); border-radius: 50%; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                            <span style="font-size: 24px; font-weight: bold;">3</span>
+                        </div>
+                        <h4 style="font-size: 18px; margin-bottom: 10px;">Retorno Inteligente</h4>
+                        <p style="opacity: 0.8; font-size: 14px;">Regras fiscais atualizadas retornam automaticamente</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="background: rgba(255,255,255,0.2); border-radius: 50%; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                            <span style="font-size: 24px; font-weight: bold;">4</span>
+                        </div>
+                        <h4 style="font-size: 18px; margin-bottom: 10px;">Sincronização Contínua</h4>
+                        <p style="opacity: 0.8; font-size: 14px;">Mantém seu cadastro sempre atualizado</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>InkTec</h4>
+                    <p>Soluções em automação comercial para aumentar a eficiência e produtividade da sua empresa.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/inktec.sistema/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/inktec/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/inktec-systems-ltd/?viewAsMember=true" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://wa.me/5522988700112" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="index.html#quem-somos">Quem Somos</a></li>
+                        <li><a href="index.html#solucoes">Soluções</a></li>
+                        <li><a href="index.html#ia">IA</a></li>
+                        <li><a href="index.html#por-que-nos">Por Que Nos Escolher</a></li>
+                        <li><a href="index.html#contato">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Soluções</h4>
+                    <ul>
+                        <li><a href="index.html#solucoes">PDV - Ponto de Venda</a></li>
+                        <li><a href="index.html#solucoes">E-Trade</a></li>
+                        <li><a href="index.html#solucoes">VR Pedidos</a></li>
+                        <li><a href="index.html#solucoes">Módulo Gourmet</a></li>
+                        <li><a href="index.html#solucoes">Gestor VR</a></li>
+                        <li><a href="saneamento-fiscal.html">Saneamento Fiscal</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contato</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Rua Segisfredo bravo 115, sala 03, Bacaxá - Saquarema - RJ, CEP: 28994-627</li>
+                        <li><i class="fas fa-phone-alt"></i> (22) 2653-2359</li>
+                        <li><i class="fab fa-whatsapp"></i> (22) 98870-0112</li>
+                        <li><i class="fas fa-envelope"></i> inktec@inktec.app.br</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 InkTec. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector('.nav-menu').classList.remove('active');
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html> 
