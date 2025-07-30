@@ -309,12 +309,9 @@
             font-size: 14px;
         }
         
-        @media (max-width: 600px) {
-            .container { padding: 20px 5vw; margin-top: 100px; }
-            h1 { font-size: 1.3rem; }
-        }
+
         
-        /* Responsive */
+        /* Mobile Responsive */
         @media (max-width: 768px) {
             .mobile-toggle {
                 display: block;
@@ -340,6 +337,24 @@
             
             .nav-menu li {
                 margin: 15px 0;
+            }
+            
+            .container {
+                margin-top: 100px;
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            p {
+                font-size: 14px;
+            }
+            
+            .download-btn {
+                padding: 12px 24px;
+                font-size: 14px;
             }
         }
         
@@ -382,7 +397,7 @@
         
         /* Mobile Large (425px to 575px) */
         @media (max-width: 575px) and (min-width: 426px) {
-            .container { max-width: 400px; padding: 0 10px; }
+            .container { max-width: 400px; padding: 0 10px; margin-top: 100px; }
             h1 { font-size: 32px; }
             .nav-menu { display: none; }
             .mobile-toggle { display: block; }
@@ -397,8 +412,13 @@
         
         /* Mobile Small (320px to 424px) */
         @media (max-width: 425px) {
-            .container { max-width: 100%; padding: 0 8px; }
+            .container { max-width: 100%; padding: 0 8px; margin-top: 100px; }
             h1 { font-size: 28px; }
+            .nav-menu { display: none; }
+            .mobile-toggle { display: block; }
+            .header-container { padding: 10px 8px; }
+            .logo-text { font-size: 16px; }
+            .logo img { height: 40px; }
             .footer-content { grid-template-columns: 1fr; gap: 20px; }
             .footer-column h4 { font-size: 14px; margin-bottom: 12px; }
             .footer-column p, .footer-column ul li { font-size: 11px; }
@@ -408,8 +428,10 @@
         
         /* Extra Small Mobile (below 320px) */
         @media (max-width: 319px) {
-            .container { max-width: 100%; padding: 0 4px; }
+            .container { max-width: 100%; padding: 0 4px; margin-top: 80px; }
             h1 { font-size: 20px; }
+            .download-btn { padding: 10px 20px; font-size: 12px; }
+            .file-desc { font-size: 12px; }
         }
         
         /* Landscape Orientation Adjustments */
