@@ -1717,12 +1717,184 @@
              opacity: 0.9;
              line-height: 1.6;
          }
-     </style>
+     
+@media (max-width: 576px) {
+    #inicio {
+        padding-top: 60px;
+        padding-bottom: 40px;
+        height: auto !important;
+        text-align: center;
+    }
+
+    #inicio .hero-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #inicio .hero-text {
+        padding: 0 15px;
+    }
+
+    #inicio h1 {
+        font-size: 24px;
+    }
+
+    #inicio p {
+        font-size: 16px;
+    }
+
+    #inicio .hero-buttons {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+}
+
+@media (max-width: 576px) {
+    header .header-container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .mobile-toggle {
+        display: block;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    nav .nav-menu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: white;
+        padding: 10px;
+        border-radius: 8px;
+        margin-top: 10px;
+    }
+
+    nav .nav-menu.open {
+        display: flex;
+    }
+}
+
+
+@media (max-width: 576px) {
+    header .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 15px;
+    }
+
+    .logo {
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .logo-text {
+        font-size: 18px;
+    }
+
+    nav .nav-menu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: white;
+        padding: 10px;
+        border-radius: 8px;
+        margin-top: 10px;
+    }
+
+    nav .nav-menu a {
+        padding: 10px 0;
+        color: #0056b3;
+        text-decoration: none;
+    }
+
+    .nav-menu.open {
+        display: flex;
+    }
+
+    .mobile-toggle {
+        display: block;
+        background: none;
+        border: none;
+        font-size: 24px;
+        margin-top: 10px;
+    }
+
+    .hero {
+        flex-direction: column;
+        height: auto;
+        padding-bottom: 40px;
+        text-align: center;
+    }
+
+    .hero-logo {
+        width: 200px;
+        margin-top: 20px;
+    }
+
+    .hero-text {
+        padding: 0 15px;
+    }
+
+    .hero h1 {
+        font-size: 24px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .hero-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+}
+
+
+@media (max-width: 576px) {
+    .header-top {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .logo-text {
+        font-size: 18px;
+    }
+
+    .mobile-toggle {
+        display: block;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 5px;
+    }
+}
+
+</style>
 </head>
 <body>
     <!-- Header -->
-    <header>
-        <div class="container header-container">
+    
+<header>
+    <div class="container header-container">
+        <div class="header-top">
             <div class="logo">
                 <img src="https://i.postimg.cc/76Ngdx1Q/LOGO-DO-CABE-ALHO.png" alt="InkTec Logo">
                 <div class="logo-text">InkTec Automação</div>
@@ -1730,18 +1902,20 @@
             <button class="mobile-toggle">
                 <i class="fas fa-bars"></i>
             </button>
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="#inicio">Início</a></li>
-                    <li><a href="#quem-somos">Quem Somos</a></li>
-                    <li><a href="#solucoes">Soluções</a></li>
-                    <li><a href="#ia">IA</a></li>
-                    <li><a href="#contato">Contato</a></li>
-                    <li><a href="download.html">Download</a></li>
-                </ul>
-            </nav>
         </div>
-    </header>
+        <nav>
+            <ul class="nav-menu">
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#quem-somos">Quem Somos</a></li>
+                <li><a href="#solucoes">Soluções</a></li>
+                <li><a href="#ia">IA</a></li>
+                <li><a href="#contato">Contato</a></li>
+                <li><a href="download.html">Download</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
 
     <!-- Hero Section -->
     <section id="inicio" class="hero">
@@ -2977,5 +3151,17 @@
             });
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9664cf671087644f',t:'MTc1MzcxMDI1NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9664cf671087644f',t:'MTc1MzcxMDI1NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+<script>
+    const toggleBtn = document.querySelector(".mobile-toggle");
+    const navMenu = document.querySelector(".nav-menu");
+
+    if (toggleBtn && navMenu) {
+        toggleBtn.addEventListener("click", () => {
+            navMenu.classList.toggle("open");
+        });
+    }
+</script>
+
+</body>
 </html>
