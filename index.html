@@ -365,6 +365,11 @@
             transform: scale(1.1);
         }
         
+        /* Efeito especial para o card da Videosoft */
+        .solution-card:hover .solution-image {
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+        }
+        
         .solution-content {
             padding: 25px;
         }
@@ -1686,11 +1691,16 @@
              animation: pulse 1s infinite;
          }
          
-         @keyframes pulse {
-             0% { transform: scale(1); }
-             50% { transform: scale(1.1); }
-             100% { transform: scale(1); }
-         }
+                 @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
          
          /* Saneamento Fiscal Styles */
          .fiscal-card {
@@ -2107,6 +2117,30 @@
                         <a href="#contato" class="solution-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
+                <div class="solution-card">
+                    <div class="solution-image" style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); display: flex; align-items: center; justify-content: center; border-radius: 10px; position: relative; overflow: hidden;">
+                        <!-- Efeito de brilho no fundo -->
+                        <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); animation: rotate 20s linear infinite;"></div>
+                        <div style="text-align: center; color: white; position: relative; z-index: 2; padding: 20px;">
+                            <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                            <i class="fas fa-video" style="font-size: 48px; color: white; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));"></i>
+                            <div style="font-size: 18px; font-weight: 700; color: white; letter-spacing: 2px; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">VIDEOSOFT</div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="solution-content">
+                        <h3>Totem de Autoatendimento</h3>
+                        <p>Totem de autoatendimento integrado ao sistema de monitoramento inteligente da Videosoft, referência nacional em videomonitoramento para o varejo.</p>
+                        <ul class="solution-features">
+                            <li><i class="fas fa-check-circle"></i> Reduza perdas e fraudes</li>
+                            <li><i class="fas fa-check-circle"></i> Mais segurança no autoatendimento</li>
+                            <li><i class="fas fa-check-circle"></i> Visualize vídeo de qualquer operação</li>
+                            <li><i class="fas fa-check-circle"></i> Integração completa com E-Trade</li>
+                            <li><i class="fas fa-check-circle"></i> Marcação automática de eventos</li>
+                        </ul>
+                        <a href="#contato" class="solution-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -2451,6 +2485,7 @@
                         <li><a href="#solucoes">VR Pedidos</a></li>
                         <li><a href="#solucoes">Módulo Gourmet</a></li>
                         <li><a href="#solucoes">Gestor VR</a></li>
+                        <li><a href="#solucoes">Totem de Autoatendimento</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
