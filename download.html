@@ -449,7 +449,46 @@
             header, footer { display: none !important; }
             body { background: white !important; color: black !important; }
         }
-    </style>
+    
+@media (max-width: 576px) {
+    .hero {
+        flex-direction: column;
+        height: auto;
+        padding-bottom: 40px;
+    }
+
+    .hero-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .hero-logo {
+        width: 200px;
+        margin-top: 20px;
+    }
+
+    .hero-text {
+        padding: 0 15px;
+    }
+
+    .hero h1 {
+        font-size: 24px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .hero-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+}
+
+</style>
 </head>
 <body>
     <!-- Header -->
