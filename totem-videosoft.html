@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Totem de Autoatendimento Videosoft - InkTec</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;700&family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #0056b3;
+      --primary-dark: #004494;
+      --secondary: #00a0e3;
+      --light: #f8f9fa;
+      --dark: #343a40;
+      --gray: #6c757d;
+      --white: #ffffff;
+      --success: #28a745;
+      --danger: #dc3545;
+    }
+    
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box; 
+      font-family: 'Inter', 'Poppins', sans-serif; 
+    }
+    
+    html { scroll-behavior: smooth; }
+    
+    body { 
+      line-height: 1.7; 
+      color: var(--dark); 
+      background-color: var(--light); 
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+
+    /* Header Styles */
+    header {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(0, 86, 179, 0.1);
+        box-shadow: 0 8px 32px rgba(0, 86, 179, 0.1);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        transition: all 0.3s ease;
+    }
+    
+    header.scrolled {
+        background: rgba(255, 255, 255, 0.98);
+        box-shadow: 0 4px 20px rgba(0, 86, 179, 0.15);
+    }
+    
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    
+    .logo {
+        display: flex;
+        align-items: center;
+        transition: transform 0.3s ease;
+    }
+    
+    .logo:hover {
+        transform: scale(1.05);
+    }
+    
+    .logo img {
+        height: 50px;
+        filter: drop-shadow(0 2px 4px rgba(0, 86, 179, 0.2));
+    }
+    
+    .logo-text {
+        font-family: 'Orbitron', sans-serif;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-left: 15px;
+        font-size: 22px;
+        letter-spacing: 1.5px;
+        text-shadow: 0 2px 4px rgba(0, 86, 179, 0.1);
+    }
+    
+    .nav-menu {
+        display: flex;
+        list-style: none;
+        align-items: center;
+        gap: 35px;
+    }
+    
+    .nav-menu li {
+        position: relative;
+    }
+    
+    .nav-menu a {
+        text-decoration: none;
+        color: var(--dark);
+        font-weight: 600;
+        font-size: 15px;
+        transition: all 0.3s ease;
+        position: relative;
+        padding: 8px 16px;
+        border-radius: 25px;
+        letter-spacing: 0.5px;
+    }
+    
+    .nav-menu a:hover {
+        color: var(--primary);
+        background: rgba(0, 86, 179, 0.08);
+        transform: translateY(-2px);
+    }
+    
+    .nav-menu a::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+        border-radius: 1px;
+    }
+    
+    .nav-menu a:hover::before {
+        width: 80%;
+    }
+    
+    .nav-menu a.active {
+        color: var(--primary);
+        background: rgba(0, 86, 179, 0.1);
+    }
+    
+    .mobile-toggle {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: var(--dark);
+        cursor: pointer;
+    }
+    
+    @media (max-width: 768px) {
+        .mobile-toggle { display: block; }
+        .nav-menu {
+            position: fixed;
+            top: 90px;
+            left: -100%;
+            width: 100%;
+            background-color: var(--white);
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            transition: left 0.3s;
+            z-index: 999;
+        }
+        .nav-menu.active { left: 0; }
+        .nav-menu li { margin: 15px 0; }
+    }
+
+    /* Hero Section Modernizado */
+    .hero-totem {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: var(--white);
+      padding-top: 130px;
+      padding-bottom: 80px;
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-totem::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+      animation: float 20s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(180deg); }
+    }
+
+    .hero-content-totem {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 60px;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-text-totem {
+      flex: 1;
+      min-width: 260px;
+    }
+
+    .hero-text-totem h1 {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      font-family: 'Inter', 'Poppins', sans-serif;
+      letter-spacing: 1px;
+      background: linear-gradient(135deg, #ffffff 0%, #e6f3ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      animation: titleGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes titleGlow {
+      0% { filter: drop-shadow(0 0 5px rgba(255,255,255,0.3)); }
+      100% { filter: drop-shadow(0 0 20px rgba(255,255,255,0.6)); }
+    }
+
+    .hero-text-totem p {
+      font-size: 24px;
+      margin-bottom: 40px;
+      opacity: 0.97;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    .hero-img-totem {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 220px;
+      position: relative;
+    }
+
+    .illustration-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 500px;
+      width: 100%;
+    }
+
+         .totem-image {
+       max-width: 400px;
+       width: 100%;
+       border-radius: 24px;
+       box-shadow: 0 20px 60px rgba(0,86,179,0.3);
+       transition: all 0.4s ease;
+       animation: totemFloat 6s ease-in-out infinite;
+       z-index: 2;
+       position: relative;
+     }
+
+    .interaction-illustration {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      opacity: 0.9;
+      animation: interactionPulse 4s ease-in-out infinite;
+    }
+
+    .interaction-image {
+      max-width: 300px;
+      width: 100%;
+      filter: drop-shadow(0 10px 30px rgba(0,86,179,0.2));
+      transition: all 0.4s ease;
+    }
+
+    .interaction-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(0,160,227,0.3) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: glowPulse 3s ease-in-out infinite;
+      z-index: -1;
+    }
+
+    @keyframes totemFloat {
+      0%, 100% { transform: translateY(0px) rotateY(0deg); }
+      50% { transform: translateY(-15px) rotateY(5deg); }
+    }
+
+    @keyframes interactionPulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.05); }
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+      50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.2); }
+    }
+
+    .hero-img-totem:hover .totem-image {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 30px 80px rgba(0,86,179,0.4);
+    }
+
+    .hero-img-totem:hover .interaction-image {
+      transform: scale(1.1);
+      filter: drop-shadow(0 15px 40px rgba(0,86,179,0.4));
+    }
+
+    .hero-img-totem:hover .interaction-glow {
+      animation: glowPulse 2s ease-in-out infinite;
+    }
+
+    /* Botão Animado */
+    .animated-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%);
+      color: var(--primary);
+      padding: 18px 48px;
+      border-radius: 50px;
+      font-size: 18px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.4s ease;
+      box-shadow: 0 8px 32px rgba(255,255,255,0.3);
+      border: 2px solid rgba(255,255,255,0.2);
+      position: relative;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+
+    .animated-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.6s;
+    }
+
+    .animated-btn:hover::before {
+      left: 100%;
+    }
+
+    .animated-btn:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(255,255,255,0.4);
+      background: linear-gradient(135deg, #ffffff 0%, #e6f3ff 100%);
+    }
+
+    .animated-btn i {
+      transition: transform 0.3s ease;
+    }
+
+    .animated-btn:hover i {
+      transform: rotate(360deg) scale(1.2);
+    }
+
+    /* Seção de Interação */
+    .interaction-section {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      padding: 80px 0;
+      position: relative;
+    }
+
+    .interaction-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="%230056b3" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+    }
+
+    .interaction-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: titlePulse 2s ease-in-out infinite;
+    }
+
+    @keyframes titlePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    .section-subtitle {
+      text-align: center;
+      font-size: 20px;
+      color: var(--gray);
+      margin-bottom: 60px;
+      font-weight: 400;
+    }
+
+    .interaction-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+
+    .interaction-card {
+      background: white;
+      border-radius: 20px;
+      padding: 40px 30px;
+      box-shadow: 0 10px 40px rgba(0,86,179,0.1);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0,86,179,0.1);
+    }
+
+    .interaction-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+
+    .interaction-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .interaction-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 60px rgba(0,86,179,0.2);
+    }
+
+    .interaction-card i {
+      font-size: 48px;
+      color: var(--primary);
+      margin-bottom: 20px;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .interaction-card:hover i {
+      transform: scale(1.2) rotate(10deg);
+    }
+
+    .interaction-card h3 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--dark);
+    }
+
+    .interaction-card p {
+      font-size: 16px;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    /* Seção de Benefícios Modernizada */
+    .benefits-totem {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+      margin: 80px auto 50px auto;
+      max-width: 1100px;
+      padding: 0 15px;
+    }
+
+    .benefit-card-totem {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0,86,179,0.1);
+      padding: 40px 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+      transition: all 0.4s ease;
+      border: 1px solid rgba(0,86,179,0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .benefit-card-totem::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(0,86,179,0.02) 0%, rgba(0,160,227,0.02) 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .benefit-card-totem:hover::after {
+      opacity: 1;
+    }
+
+    .benefit-card-totem:hover {
+      box-shadow: 0 16px 48px rgba(0,86,179,0.15);
+      transform: translateY(-8px) scale(1.02);
+    }
+
+    .benefit-card-totem i {
+      font-size: 36px;
+      color: var(--primary);
+      transition: all 0.3s ease;
+    }
+
+    .benefit-card-totem:hover i {
+      transform: scale(1.2) rotate(5deg);
+    }
+
+    .benefit-card-totem strong {
+      font-size: 20px;
+      color: var(--primary);
+      font-family: 'Inter', 'Poppins', sans-serif;
+      font-weight: 600;
+    }
+
+    .benefit-card-totem span {
+      font-size: 16px;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    /* Seção de Explicação Modernizada */
+    .explanation-totem {
+      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+      border-radius: 24px;
+      box-shadow: 0 12px 48px rgba(0,86,179,0.1);
+      padding: 60px 50px;
+      margin: 0 auto 80px auto;
+      font-size: 18px;
+      color: #343a40;
+      max-width: 900px;
+      line-height: 1.8;
+      border: 1px solid rgba(0,86,179,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .explanation-totem::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(0,86,179,0.03) 0%, transparent 70%);
+      animation: rotate 20s linear infinite;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .explanation-totem p {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Botão de Contato Modernizado */
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: #fff;
+      padding: 20px 50px;
+      border-radius: 50px;
+      font-size: 18px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.4s ease;
+      box-shadow: 0 10px 30px rgba(0,86,179,0.3);
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      margin: 0 auto 80px auto;
+    }
+
+    .contact-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.6s;
+    }
+
+    .contact-btn:hover::before {
+      left: 100%;
+    }
+
+    .contact-btn:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(0,86,179,0.4);
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+    }
+
+    .contact-btn i {
+      transition: transform 0.3s ease;
+    }
+
+    .contact-btn:hover i {
+      transform: rotate(360deg) scale(1.2);
+    }
+
+    /* Footer Styles */
+    footer {
+      background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+      color: #ecf0f1;
+      padding: 60px 0 20px;
+      position: relative;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-column h4 {
+      color: #ffffff;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .footer-column h4::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 30px;
+      height: 2px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      border-radius: 1px;
+    }
+
+    .footer-column p,
+    .footer-column ul li {
+      color: #bdc3c7;
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column ul li a {
+      color: #bdc3c7;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-column ul li a:hover {
+      color: var(--secondary);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: #ffffff;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 20px;
+      text-align: center;
+      color: #95a5a6;
+    }
+
+    /* Responsividade */
+    @media (max-width: 900px) {
+      .hero-content-totem { 
+        flex-direction: column; 
+        gap: 40px; 
+        text-align: center;
+      }
+      .totem-image { max-width: 300px; }
+      .interaction-image { max-width: 250px; }
+      .hero-text-totem h1 { font-size: 36px; }
+      .section-title { font-size: 32px; }
+      .interaction-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .hero-totem { 
+        padding-top: 100px; 
+        padding-bottom: 40px; 
+        min-height: 60vh;
+      }
+             .totem-image { 
+         max-width: 200px; 
+       }
+      .interaction-image { 
+        max-width: 180px; 
+      }
+      .interaction-glow {
+        width: 150px;
+        height: 150px;
+      }
+      .hero-text-totem h1 { font-size: 28px; }
+      .hero-text-totem p { font-size: 18px; }
+      .animated-btn { 
+        padding: 16px 36px; 
+        font-size: 16px; 
+      }
+      .explanation-totem { 
+        padding: 30px 20px; 
+        font-size: 16px; 
+      }
+      .benefits-totem { gap: 20px; }
+      .interaction-section { padding: 60px 0; }
+    }
+  </style>
+</head>
+<body>
+    <!-- Header -->
+    
+<header>
+    <div class="container header-container">
+        <div class="header-top">
+            <div class="logo">
+                <img src="https://i.postimg.cc/76Ngdx1Q/LOGO-DO-CABE-ALHO.png" alt="InkTec Logo">
+                <div class="logo-text">InkTec Automação</div>
+            </div>
+            <button class="mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <nav>
+            <ul class="nav-menu">
+                <li><a href="index.html">Início</a></li>
+                <li><a href="index.html#quem-somos">Quem Somos</a></li>
+                <li><a href="index.html#solucoes">Soluções</a></li>
+                <li><a href="index.html#ia">IA</a></li>
+                <li><a href="index.html#contato">Contato</a></li>
+                <li><a href="download.html">Download</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+  <section class="hero-totem">
+    <div class="hero-content-totem">
+      <div class="hero-text-totem">
+        <h1>Totem de Autoatendimento Videosoft</h1>
+        <p>Transforme seu autoatendimento com a tecnologia mais avançada do mercado! Segurança, agilidade e integração total com o E-Trade.</p>
+        <a href="#interacao" class="animated-btn">
+          <i class="fas fa-magic"></i>
+          Descubra como funciona
+        </a>
+      </div>
+      <div class="hero-img-totem">
+        <div class="illustration-container">
+            <img src="https://i.postimg.cc/ryYqWNXq/Adobe-Express-file.png" alt="Pessoa interagindo com totem de autoatendimento" class="interaction-image">
+            <div class="interaction-glow"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="interacao" class="interaction-section">
+    <div class="interaction-container">
+      <h2 class="section-title">Como Funciona na Prática</h2>
+      <p class="section-subtitle">Veja como o totem revoluciona a experiência do seu cliente</p>
+      
+      <div class="interaction-grid">
+        <div class="interaction-card">
+          <i class="fas fa-hand-pointer"></i>
+          <h3>1. Cliente Toca na Tela</h3>
+          <p>O cliente chega ao totem e inicia sua experiência de compra de forma intuitiva e amigável.</p>
+        </div>
+        
+        <div class="interaction-card">
+          <i class="fas fa-shopping-cart"></i>
+          <h3>2. Faz o Pedido</h3>
+          <p>Navega pelo cardápio digital, escolhe os produtos e personaliza seu pedido com facilidade.</p>
+        </div>
+        
+        <div class="interaction-card">
+          <i class="fas fa-credit-card"></i>
+          <h3>3. Realiza o Pagamento</h3>
+          <p>Paga de forma segura através dos diversos métodos de pagamento disponíveis no totem.</p>
+        </div>
+        
+        <div class="interaction-card">
+          <i class="fas fa-video"></i>
+          <h3>4. Videosoft Registra Tudo</h3>
+          <p>Cada ação é automaticamente registrada e associada às imagens das câmeras de segurança.</p>
+        </div>
+        
+        <div class="interaction-card">
+          <i class="fas fa-chart-line"></i>
+          <h3>5. E-Trade Processa</h3>
+          <p>O sistema E-Trade recebe o pedido em tempo real e inicia o processamento imediatamente.</p>
+        </div>
+        
+        <div class="interaction-card">
+          <i class="fas fa-check-circle"></i>
+          <h3>6. Pedido Confirmado</h3>
+          <p>O cliente recebe a confirmação e pode acompanhar o status do seu pedido em tempo real.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="beneficios" class="section" style="background: #f5f9ff; padding-top: 60px;">
+    <div class="benefits-totem">
+      <div class="benefit-card-totem">
+        <i class="fas fa-shield-alt"></i>
+        <strong>Reduza perdas e fraudes</strong>
+        <span>Monitoramento inteligente e registro de todas as ações do cliente no totem com marcação automática de eventos.</span>
+      </div>
+      <div class="benefit-card-totem">
+        <i class="fas fa-video"></i>
+        <strong>Associação com imagens</strong>
+        <span>Cada operação é vinculada automaticamente às imagens das câmeras Videosoft para total rastreabilidade.</span>
+      </div>
+      <div class="benefit-card-totem">
+        <i class="fas fa-bolt"></i>
+        <strong>Visualização rápida de eventos</strong>
+        <span>Encontre facilmente o vídeo de qualquer pedido, pagamento ou interação em segundos.</span>
+      </div>
+      <div class="benefit-card-totem">
+        <i class="fas fa-link"></i>
+        <strong>Integração total com E-Trade</strong>
+        <span>O totem conversa diretamente com o sistema de gestão InkTec, garantindo agilidade e segurança total.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="explanation-totem">
+    <p>
+      🚀 Nossa solução exclusiva integra o <strong>Totem de Autoatendimento</strong> ao sistema de monitoramento <strong>Videosoft</strong>, referência nacional em videomonitoramento para o varejo. Todas as ações realizadas no totem – como pedidos, pagamentos e interações do cliente – ficam registradas e associadas às imagens das câmeras, com marcação automática de eventos.<br><br>
+      
+      💡 Isso proporciona mais segurança, reduz perdas e fraudes, e facilita a auditoria de qualquer operação. A tecnologia da Videosoft trabalha junto com o E-Trade para oferecer uma experiência moderna, inteligente e segura para o seu negócio.<br><br>
+      
+      🎯 <strong>Resultado:</strong> Seus clientes têm uma experiência incrível, você tem total controle e segurança, e seu negócio cresce com tecnologia de ponta!
+    </p>
+  </section>
+
+     <div style="text-align: center;">
+     <a href="https://wa.me/5522988700112?text=Olá! Gostaria de saber mais sobre o Totem de Autoatendimento Videosoft. Pode me ajudar?" target="_blank" class="contact-btn">
+       <i class="fab fa-whatsapp"></i>
+       Quero implementar agora!
+     </a>
+   </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h4>InkTec</h4>
+          <p>Soluções em automação comercial para aumentar a eficiência e produtividade da sua empresa.</p>
+          <div class="social-links">
+            <a href="https://www.facebook.com/inktec.sistema/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/inktec/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/company/inktec-systems-ltd/?viewAsMember=true" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://wa.me/5522988700112" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h4>Links Rápidos</h4>
+          <ul>
+            <li><a href="index.html#inicio">Início</a></li>
+            <li><a href="index.html#quem-somos">Quem Somos</a></li>
+            <li><a href="index.html#solucoes">Soluções</a></li>
+            <li><a href="index.html#por-que-nos">Por Que Nos Escolher</a></li>
+            <li><a href="index.html#contato">Contato</a></li>
+            <li><a href="download.html">Download</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Soluções</h4>
+          <ul>
+            <li><a href="index.html#solucoes">PDV - Ponto de Venda</a></li>
+            <li><a href="index.html#solucoes">E-Trade</a></li>
+            <li><a href="index.html#solucoes">VR Pedidos</a></li>
+            <li><a href="index.html#solucoes">Módulo Gourmet</a></li>
+            <li><a href="index.html#solucoes">Gestor VR</a></li>
+            <li><a href="index.html#solucoes">Totem de Autoatendimento</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Contato</h4>
+          <ul>
+            <li><i class="fas fa-map-marker-alt"></i> Rua Segisfredo bravo 115, sala 03, Bacaxá - Saquarema - RJ, CEP: 28994-627</li>
+            <li><i class="fas fa-phone-alt"></i> (22) 2653-2359</li>
+            <li><i class="fab fa-whatsapp"></i> (22) 98870-0112</li>
+            <li><i class="fas fa-envelope"></i> inktec@inktec.app.br</li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Acesso remoto</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 10px;">
+              <a href="https://download.teamviewer.com/download/TeamViewer_Setup.exe" target="_blank" download style="text-decoration: none; color: #5a6a85; display: flex; align-items: center;">
+                <img src="https://www.teamviewer.com/favicon.ico" alt="TeamViewer" style="width: 20px; height: 20px; margin-right: 8px; border-radius: 3px;">
+                Baixar TeamViewer
+              </a>
+            </li>
+            <li style="margin-bottom: 10px;">
+              <a href="https://download.anydesk.com/AnyDesk.exe" target="_blank" download style="text-decoration: none; color: #5a6a85; display: flex; align-items: center;">
+                <img src="https://anydesk.com/favicon.ico" alt="AnyDesk" style="width: 20px; height: 20px; margin-right: 8px; border-radius: 3px;">
+                Baixar AnyDesk
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 InkTec. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile Menu Toggle
+    document.querySelector('.mobile-toggle').addEventListener('click', function() {
+      document.querySelector('.nav-menu').classList.toggle('active');
+    });
+
+    // Smooth Scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector('.nav-menu').classList.remove('active');
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Header scroll effect
+    window.addEventListener('scroll', function() {
+      const header = document.querySelector('header');
+      if (window.scrollY > 100) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Animate elements on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Observe all cards and sections
+    document.querySelectorAll('.interaction-card, .benefit-card-totem').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
